@@ -1,0 +1,44 @@
+CREATE TABLE pacientes (
+    nome VARCHAR(255)NOT NULL,
+    cpf VARCHAR(255)NOT NULL,
+    id INTEGER PRIMARY KEY auto_increment,
+    dataNascimento DATE NOT NULL,
+    email VARCHAR(255)NOT NULL
+);
+
+CREATE TABLE dentistas (
+    email VARCHAR(255)NOT NULL,
+    cpf VARCHAR(255)NOT NULL,
+    id INTEGER PRIMARY KEY auto_increment,
+    nome VARCHAR(255)NOT NULL,
+    dataNascimento DATE NOT NULL
+);
+
+CREATE TABLE procedimentos (
+    preco DOUBLE NOT NULL,
+    nome VARCHAR(255)NOT NULL,
+    descricao VARCHAR(255)NOT NULL,
+    id INTEGER PRIMARY KEY auto_increment
+);
+
+CREATE TABLE agendamentos (
+    nomePaciente INTEGER NOT NULL,
+    nomeDentista INTEGER NOT NULL,
+    procedimento INTEGER NOT NULL,
+    id INTEGER PRIMARY KEY auto_increment
+);
+ 
+ALTER TABLE agendamentos ADD CONSTRAINT FK_agendamentos_1
+    FOREIGN KEY (nomePaciente)
+    REFERENCES pacientes (id)
+    ON DELETE CASCADE;
+ 
+ALTER TABLE agendamentos ADD CONSTRAINT FK_agendamentos_2
+    FOREIGN KEY (nomeDentista)
+    REFERENCES dentistas (id)
+    ON DELETE CASCADE;
+ 
+ALTER TABLE agendamentos ADD CONSTRAINT FK_agendamentos_3
+    FOREIGN KEY (procedimento)
+    REFERENCES procedimentos (id)
+    ON DELETE CASCADE;
